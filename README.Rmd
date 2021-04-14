@@ -1,0 +1,27 @@
+---
+output: 
+  github_document:
+    toc: false
+    fig_width: 10.08
+    fig_height: 6
+vignette: >
+  %\VignetteIndexEntry{README}
+  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+# tidyfamily
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+library(dplyr)
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  # fig.path = "man/figures/",
+  dpi = 450
+)
+```
+
