@@ -1,6 +1,14 @@
 
 # tidyfamily
 
+A little package to create family dynasties and visualize them as
+networks and genealogical trees.
+
+## Current Problems / Features ideas
+
+  - Don’t know how to nicely display them as trees
+  - Functions to retrieve family members of a given degree
+
 ## Installation
 
 ``` r
