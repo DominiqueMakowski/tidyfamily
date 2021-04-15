@@ -6,7 +6,8 @@ networks and genealogical trees.
 
 ## Current Problems / Features ideas
 
-  - Don’t know how to nicely display them as trees
+  - Don’t know how to nicely display them as trees (help by answering
+    [**here**](https://stackoverflow.com/questions/67102965/organize-graph-nodes-vertically-according-to-a-y-value-in-r-ggraph))
   - Functions to retrieve family members of a given degree
 
 ## Installation
