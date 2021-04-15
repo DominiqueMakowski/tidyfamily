@@ -23,5 +23,85 @@ knitr::opts_chunk$set(
   # fig.path = "man/figures/",
   dpi = 450
 )
+
+# https://github.com/adrienverge/familytreemaker
 ```
+
+## Installation
+
+```{r}
+remotes::install_github("DominiqueMakowski/tidyfamily")
+```
+
+## Create Family Data
+
+```{r}
+library(tidyfamily)
+library(dplyr)
+
+# Louis XIV's unit
+data <- family_member("Louis XIV", birth = "1638-09-05", death = "1715-09-01", sex = "Male") %>% 
+  family_member("Marie-Thérèse d'Autriche", birth = "1638-10-10", death = "1683-07-30", sex = "Female") %>% 
+  family_son("Louis1661", name = "Louis de France", birth = "1661-11-01", death = "1711-04-14", father = "Louis XIV", mother = "Marie-Thérèse d'Autriche") %>% 
+  family_daughter("Marie-Thérèse de France", text = "La Petite Madame", birth = 1667, death = 1672, father = "Louis XIV", mother = "Marie-Thérèse d'Autriche") %>% 
+  family_son("Philippe-Charles de France", text = "Duc d'Anjou", birth="1668-08-05", death = "1671-07-10", father = "Louis XIV", mother = "Marie-Thérèse d'Autriche") %>% 
+  # Louis1661's unit
+  family_member("Marie Anne Christine de Bavière", birth = 1660, sex = "Female") %>% 
+  family_son("Louis1682", name = "Louis de France", text = "Duc de Bourgogne", birth=1682, death = 1712, father = "Louis1661", mother = "Marie Anne Christine de Bavière") %>% 
+  family_son("Philippe V", name = "Philippe V d'Espagne", birth=1683, death = 1746, father = "Louis1661", mother = "Marie Anne Christine de Bavière") %>% 
+  family_son("Charles", birth="1686-07-31") %>% 
+  # Louis1682's unit
+  family_member("Marie-Adélaïde de Savoie", birth = "1685-12-06", death = "1712-02-12", sex = "Female") %>% 
+  family_son("Louis XV", birth = "1710-02-15", death = "1774-05-10")
+
+data
+```
+
+## Visualize Family Tree
+
+```{r}
+tidyfamily:::.family_get_edges(data)
+
+
+
+
+# Get unions
+unions <- family_get_unions(data)
+
+
+
+
+nodes <- data[data$ID %in% unique(c(edges$from, edges$to)), ] %>%
+  merge(data.frame(ID = unions$Union_ID, Union = unions$Union, Name = unions$Union, Sex = "Union"), all = TRUE) %>%
+  rename(name = ID)
+
+
+# Get Children
+childrens <- na.omit(data[c("ID", "Father", "Mother", "Union")])
+childrens$Union_ID <- paste(childrens$Father, "+", childrens$Mother)
+
+edges <- childrens %>%
+  transmute(from = Union_ID, to = ID, Link = "Child") %>%
+  rbind(edges)
+
+nodes <- data[data$ID %in% childrens$ID, ] %>%
+  rename(name = ID) %>%
+  merge(nodes, all = TRUE)
+
+
+
+
+
+# Aesthetics
+
+tbl_graph(nodes = nodes, edges = edges) %>%
+  ggraph(layout = "nicely") +
+  geom_edge_link(aes(color = Link)) +
+  geom_node_label(aes(label = Name))
+
+
+```
+
+
+
 

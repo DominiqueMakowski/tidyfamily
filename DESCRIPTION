@@ -10,6 +10,18 @@ Authors@R: c(
         comment = c(ORCID = "0000-0001-5375-9967")))
 Maintainer: Dominique Makowski <dom.makowski@gmail.com>
 Description: Easily build and display genealogical trees.
-License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends:
+    R (>= 3.4)
+Imports:
+    methods,
+    stats,
+    utils,
+    lubridate,
+    dplyr,
+    tidyr,
+    ggraph,
+    tidygraph
+License: GPL-3
+RoxygenNote: 7.1.1
