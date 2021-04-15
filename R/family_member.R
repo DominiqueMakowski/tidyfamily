@@ -40,8 +40,8 @@ family_member <- function(data = NULL, id = NULL, name = NULL, text = NA, sex = 
   death <- .family_date(death)
 
   # Create data
-  member <- data.frame(id = id,
-                       name = name,
+  member <- data.frame(id = as.character(id),
+                       name = as.character(name),
                        text = text,
                        sex = sex,
                        birth_year = birth$year,
@@ -54,7 +54,8 @@ family_member <- function(data = NULL, id = NULL, name = NULL, text = NA, sex = 
                        death_text = death$text,
                        father = father,
                        mother = mother,
-                       born_of = born_of)
+                       born_of = born_of,
+                       stringsAsFactors = FALSE)
 
   if(is.null(data)) {
     data <- member

@@ -21,3 +21,13 @@
   }
   list(year = year, month = month, day = day, text = text)
 }
+
+
+
+#' re-export magrittr pipe operator
+#'
+#' @importFrom dplyr %>%
+#' @name %>%
+#' @rdname pipe
+#' @export
+NULL
